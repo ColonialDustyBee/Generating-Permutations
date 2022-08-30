@@ -32,11 +32,20 @@ void Permutations::generateList(int userInput) {
 	list = localList;
 }
 void Permutations::generatePermutations() {
-	// Binary Search to find biggest number in list
-	
-	// Compare Biggest number to number next to it (on the left of the list)
-	// Swap two numbers
-	// Rinse and repeat until permutations are done which we will use value here.
+	vector <int> localList = list;
+	vector<int>::iterator begin = localList.begin();// Should gather beginning
+	vector<int>::iterator end = localList.end();
+	vector <int>::iterator position = localList.end() - 1; // Should gather the position to the very end and then decrease
+	while (*position > *position - 1 && *position != *begin) { // while the mobile element is greater than the one in front of it AND it's not at the beginning
+		if (*position > *position - 1) { // if current one is greater than the one before it (it starts on the right)
+			swap(*position, *(position - 1)); // swap it.
+			for (auto i : localList) { // prints permutation
+				cout << i << " ";
+			}
+			cout << endl;
+		}
+		--position; // decrements.
+	}
 }
 
 int Permutations::getFactorial() {
