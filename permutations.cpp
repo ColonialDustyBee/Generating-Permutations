@@ -38,6 +38,7 @@ void Permutations::generatePermutations(int userInput) {
 	vector<int>::iterator end = localList.end() - 1;
 	vector <int>::iterator position = localList.end() - 1; // Should gather the position to the very end and then decrease
 	while (factorialValue > 0) {
+		// this one will move it to the left
 		while (position != begin) { // while the mobile element is greater than the one in front of it AND it's not at the beginning
 			if (*position > *position - 1) { // if current one is greater than the one before it (it starts on the right)
 				swap(*position, *(position - 1)); // swap it.
@@ -50,9 +51,12 @@ void Permutations::generatePermutations(int userInput) {
 				factorialValue--;
 			}
 		}
-		
+		if (position == begin) {
+			position = localList.begin() + 1;
+		}
+		// this one will move it to the right
 		while (position != end) {
-			if (*position < *position + 1) {
+			if (*position + 1 > *position) {
 				swap(*(position), *(position + 1));
 				for (auto i : localList) {
 					cout << i << " ";
