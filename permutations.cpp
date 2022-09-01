@@ -1,10 +1,14 @@
 #include <iostream>
+#include <iterator>
 #include "permutations.h"
+#include <algorithm>
 
 using namespace std;
 
 Permutations::Permutations(){};
 Permutations::~Permutations() {};
+
+// Methods
 
 bool Permutations::userValidation(int userInput) {
 	if (userInput < 1 || userInput > 25) {
@@ -14,12 +18,9 @@ bool Permutations::userValidation(int userInput) {
 		return true;
 	}
 }
-bool Permutations::findFactorial(int userInput) {
+
+void Permutations::findFactorial(int userInput) {
 	int factorialValue = permutationValue;
-	if (userInput < 1 && userInput > 25) {
-		cout << "Sorry, that input is invalid!" << endl;
-		return false;
-	}
 	for (int i = 1; i <= userInput; i++) {
 		factorialValue *= i; // Should multiply iteratively up to the value.
 	} 
@@ -30,12 +31,11 @@ void Permutations::generateList(int userInput) {
 	vector <int> localList;
 	localList.clear(); // Should clear list in case the user wanted to generate another one.s
 	localList.reserve(userInput); // Inputs can only be up to 25 anyways
-	cout << "{";
 	for (int i = 1; i <= userInput; i++) {
-		list.push_back(i);
-		cout << i << " ";
+		localList.push_back(i);
+		//cout << i << " ";
 	}
-	cout << "}" << endl;
+	cout << endl;
 
 	list = localList;
 }
@@ -56,12 +56,12 @@ void Permutations::generatePermutations(int userInput) {
 		while (beginPO != position) {
 			vector<int>::iterator largestMobileElement = max_element(begin(localList), end(localList)); // find max element
 			swap(*(largestMobileElement), *(position - 1));
-			for (auto i : localList) {
+			position--;
+			factorialValue--;
+			for (auto i : localList) { // prints permutation
 				cout << i << " ";
 			}
 			cout << endl;
-			--position;
-			--factorialValue;
 			if (position == beginPO) {
 				reachedLeft = true;
 			}
@@ -81,12 +81,12 @@ void Permutations::generatePermutations(int userInput) {
 				cout << i << " ";
 			}
 			cout << endl;
-			++position;
-			--factorialValue;
+			position++;
+			factorialValue--;
 		}
 	}
 }
 
 int Permutations::getFactorial() {
-	return permutationValue;
+		return permutationValue;
 }
