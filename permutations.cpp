@@ -34,38 +34,47 @@ void Permutations::generateList(int userInput) {
 void Permutations::generatePermutations(int userInput) {
 	int factorialValue = permutationValue;
 	vector <int> localList = list;
-	vector<int>::iterator begin = localList.begin();// Should gather beginning
-	vector<int>::iterator end = localList.end() - 1;
-	vector <int>::iterator position = localList.end() - 1; // Should gather the position to the very end and then decrease
+	vector<int>::iterator beginPO = localList.begin();// Should gather beginning
+	vector<int>::iterator endPO = localList.end() - 1;
+	vector <int>::iterator position = localList.end() - 1;// Should gather the position to the very end and then decrease
+	bool reachedRight = false;
+	bool reachedLeft = false;
+	factorialValue--;
+	for (auto i : localList) {
+		cout << i << " ";
+	}
+	cout << endl;
 	while (factorialValue > 0) {
-		// this one will move it to the left
-		while (position != begin) { // while the mobile element is greater than the one in front of it AND it's not at the beginning
-			if (*position > *position - 1) { // if current one is greater than the one before it (it starts on the right)
-				swap(*position, *(position - 1)); // swap it.
-				for (auto i : localList) { // prints permutation
-					cout << i << " ";
-				}
-				cout << endl;
-				position--; // decrements
-				cout << factorialValue << endl;
-				factorialValue--;
+		while (beginPO != position) {
+			vector<int>::iterator largestMobileElement = max_element(begin(localList), end(localList)); // find max element
+			swap(*(largestMobileElement), *(position - 1));
+			for (auto i : localList) {
+				cout << i << " ";
+			}
+			cout << endl;
+			--position;
+			--factorialValue;
+			if (position == beginPO) {
+				reachedLeft = true;
 			}
 		}
-		if (position == begin) {
-			position = localList.begin() + 1;
-		}
-		// this one will move it to the right
-		while (position != end) {
-			if (*position + 1 > *position) {
-				swap(*(position), *(position + 1));
-				for (auto i : localList) {
-					cout << i << " ";
+		while (endPO != position) {
+			vector<int>::iterator largestMobileElement = max_element(begin(localList), end(localList)); // find max element
+			if (reachedLeft == true) {
+				swap(*(largestMobileElement + 1), *(position + 1));
+				if (*(position) > *(position + 1)) {
+					reachedLeft = false;
 				}
-				cout << endl;
-				position++;
-				cout << factorialValue << endl;
-				factorialValue--;
 			}
+			else {
+				swap(*largestMobileElement, *(position + 1));
+			}
+			for (auto i : localList) {
+				cout << i << " ";
+			}
+			cout << endl;
+			++position;
+			--factorialValue;
 		}
 	}
 }
