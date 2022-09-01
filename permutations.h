@@ -13,7 +13,8 @@ class Permutations {
 	// Member Functions
 		Permutations(); 
 		~Permutations();
-		bool findFactorial(int);
+		bool userValidation(int);
+		void findFactorial(int);
 		void generateList(int);
 		void generatePermutations();
 		int getFactorial();
