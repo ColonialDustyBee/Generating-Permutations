@@ -6,6 +6,14 @@ using namespace std;
 Permutations::Permutations(){};
 Permutations::~Permutations() {};
 
+bool Permutations::userValidation(int userInput) {
+	if (userInput < 1 || userInput > 25) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
 bool Permutations::findFactorial(int userInput) {
 	int factorialValue = permutationValue;
 	if (userInput < 1 && userInput > 25) {
